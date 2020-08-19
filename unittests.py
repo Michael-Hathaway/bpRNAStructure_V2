@@ -1,6 +1,5 @@
 import unittest
-
-import StructureCreator as SC
+import bpRNAStructure.StructureCreator as SC
 
 
 class StructureParserUnittest(unittest.TestCase):
