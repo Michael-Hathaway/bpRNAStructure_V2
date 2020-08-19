@@ -1121,11 +1121,11 @@ class Structure:
     """
 
     def features(self):
-        featureLabels = []
+        feature_labels = []
 
-        featureLabels.extend(self.stemLabels())
-        featureLabels.extend(self.bulgeLabels())
-        featureLabels.extend(self.hairpinLabels())
-        featureLabels.extend(self.internalLoopLabels())
+        feature_labels.extend(self.stemLabels())
+        feature_labels.extend(self.bulgeLabels())
+        feature_labels.extend(self.hairpinLabels())
+        feature_labels.extend(self.internalLoopLabels())
 
-        return featureLabels
+        return feature_labels

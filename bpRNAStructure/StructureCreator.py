@@ -42,7 +42,6 @@ class StructureCreator():
 
     @staticmethod
     def get_feature_sequence(feature_data: str) -> str:
-        # TODO: this can probably be done better
         sequence = ''
         for char in feature_data:
             if char.isalpha():
@@ -72,17 +71,19 @@ class StructureCreator():
     def _create_stem_from_file_line(self, file_line: str) -> Stem:
         stem_data = file_line.strip().split(" ")
 
-        stemLabel = stem_data[0]
+        stemLabel = stem_data[0]  # get stem identifier
 
         part5p_start, part5p_stop = self.split_feature_index_string(
-            stem_data[1])
+            stem_data[1])  # get stem 5p indices
 
-        part5p_seq = self.get_feature_sequence(stem_data[2])
+        part5p_seq = self.get_feature_sequence(
+            stem_data[2])  # stem 5p sequence
 
         part3p_start, part3p_stop = self.split_feature_index_string(
-            stem_data[3])
+            stem_data[3])  # get stem 3p indices
 
-        part3p_seq = self.get_feature_sequence(stem_data[4])
+        part3p_seq = self.get_feature_sequence(
+            stem_data[4])  # stem 3p sequence
 
         return Stem(stemLabel, part5p_seq, part3p_seq,
                     (part5p_start, part5p_stop), (part3p_start, part3p_stop))
