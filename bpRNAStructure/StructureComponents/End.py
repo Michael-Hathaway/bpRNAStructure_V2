@@ -4,7 +4,8 @@ ENDS
 Member variable -- data type -- description:
 self._label -- string -- label for the end objects
 self._sequence -- string -- sequence that defines the end objects
-self._span -- tuple(int, int) -- tuple containing the integer start and stop locations for the end object
+self._span -- tuple(int, int) -- tuple containing the integer start and
+    stop locations for the end object
 '''
 
 
@@ -57,7 +58,8 @@ class End:
     Function: End.sequence()
     Description: Function returns the sequence that defines the end object
     Parameters:
-            (newSequence=None) -- str -- new nucleotide sequence to define the End object
+            (newSequence=None) -- str -- new nucleotide sequence to define
+            the End object
     Return Value:
             str - the current sequence that defines the End object
     '''
@@ -81,10 +83,12 @@ class End:
 
     '''
     Function: End.span()
-    Description: Function returns a tuple that contains the integer start and stop index locations for the end object
+    Description: Function returns a tuple that contains the integer start and
+        stop index locations for the end object
     Parameters: None
     Return Value:
-            (int, int) - tuple containing the integer value start and stop indices of the End object
+            (int, int) - tuple containing the integer value start and stop
+            indices of the End object
     '''
 
     def span(self):
@@ -92,10 +96,12 @@ class End:
 
     '''
     Function: End.neighbors()
-    Description: function to get the StructureComponents directly adjacent to the end
+    Description: function to get the StructureComponents directly adjacent to
+        the end
     Parameters: None
     Return Value:
-            (str, str) - tuple containing the labels for the StructureComponents neighboring the End in the Structure object
+            (str, str) - tuple containing the labels for the
+            StructureComponents neighboring the End in the Structure object
     '''
 
     def neighbors(self):

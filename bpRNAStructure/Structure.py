@@ -73,11 +73,6 @@ class Structure:
     def __len__(self):
         return self._length
 
-
-####################################################
-###### Load File and Associated Functions ##########
-####################################################
-
     '''
     Function: resetStructure()
     Description: Function resets all Structure member variables to None.
@@ -114,11 +109,6 @@ class Structure:
         # reset component array
         self._componentArray = None
 
-
-##############################################
-###### Add StructureComponent Neighbors ######
-##############################################
-
     '''
     Function Name: _addStructureComponentNeighbors()
     Description: Function fills in the neighboring structure information for each of the StructureComponent objects contained in the Structure object
@@ -142,11 +132,6 @@ class Structure:
                 structureComponent._addNeighbors(neighbors[0], neighbors[1])
             except:  # will skip NCBPs and MultiLoops
                 continue
-
-
-#############################
-###### COMPONENT ARRAY ######
-#############################
 
     '''
     Function Name: _addStemToComponentArray(stem)

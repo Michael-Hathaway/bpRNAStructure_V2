@@ -5,17 +5,25 @@ Member variable -- data type -- description:
 self._label -- string -- label for the external loop secondary structure
 self._sequence -- string -- base sequence that defines the external loop
 self._sequenceLen -- int -- length of the external loop sequence
-self._span --tuple(int, int) -- tuple containing the integer start and stop locations for the external loop sequence
-self._closingPair5p -- tuple(string, string) -- tuple that contains the 5' closing base pair for the external loop
-self._closingPair5pSpan -- tuple(int, int) -- tuple containg the integer index locations for the 5' closing pair
-self._closingPair3p -- tuple(string, string) -- tuple that contains the 3' closing base pair for the external loop
-self._closingPair3pSpan -- tuple(int, int) -- tuple containg the integer index locations for the 3' closing pair
+self._span --tuple(int, int) -- tuple containing the integer start and stop
+    locations for the external loop sequence
+self._closingPair5p -- tuple(string, string) -- tuple that contains the 5'
+    closing base pair for the external loop
+self._closingPair5pSpan -- tuple(int, int) -- tuple containg the integer
+    index locations for the 5' closing pair
+self._closingPair3p -- tuple(string, string) -- tuple that contains the 3'
+    closing base pair for the external loop
+self._closingPair3pSpan -- tuple(int, int) -- tuple containg the integer
+    index locations for the 3' closing pair
 '''
 
 
 class ExternalLoop:
     # __init__() method for the external loop object
-    def __init__(self, label='', seq='', seqSpan=(-1, -1), closingPair5p=('', ''), closingPair5pSpan=(-1, -1), closingPair3p=('', ''), closingPair3pSpan=(-1, -1), neighbor5p=None, neighbor3p=None):
+    def __init__(self, label='', seq='', seqSpan=(-1, -1),
+                 closingPair5p=('', ''), closingPair5pSpan=(-1, -1),
+                 closingPair3p=('', ''), closingPair3pSpan=(-1, -1),
+                 neighbor5p=None, neighbor3p=None):
         self._label = label
         self._sequence = seq
         self._sequenceLen = len(seq)
@@ -52,7 +60,8 @@ class ExternalLoop:
     Function: ExternalLoop.label()
     Description: Function returns the label for the external loop
     Parameters:
-            (newLabel=None) -- str -- new label to define the ExternalLoop Object
+            (newLabel=None) -- str -- new label to define the ExternalLoop
+            Object
     Return Value:
             str - the current label for the ExternalLoop object
     '''
@@ -67,7 +76,8 @@ class ExternalLoop:
     Function: ExternalLoop.sequence()
     Description: Function returns the sequence that defines the external loop
     Parameters:
-            (newSequence=None) -- str -- new nucleotide sequence to define the ExternalLoop
+            (newSequence=None) -- str -- new nucleotide sequence to define the
+            ExternalLoop
     Return Value:
             str - current sequence that defines the ExternalLoop
     '''
@@ -88,10 +98,12 @@ class ExternalLoop:
 
     '''
     Function: ExternalLoop.span()
-    Description: Function returns a tuple containing the start and stop index locations for the external loop sequence
+    Description: Function returns a tuple containing the start and stop index
+        locations for the external loop sequence
     Parameters: None
     Return Value:
-            (int, int) - tuple containing the start and stop index locations of the ExternalLoop
+            (int, int) - tuple containing the start and stop index locations
+            of the ExternalLoop
     '''
 
     def span(self):
@@ -99,10 +111,12 @@ class ExternalLoop:
 
     '''
     Function: ExternalLoop.neighbors()
-    Description: function to get the StructureComponents directly adjacent to the external loop
+    Description: function to get the StructureComponents directly adjacent to
+        the external loop
     Parameters: None
     Return Value:
-            (str, str) - tuple containing the labels for the 5' and 3' neighbors of the ExternalLoop
+            (str, str) - tuple containing the labels for the 5' and 3'
+            neighbors of the ExternalLoop
     '''
 
     def neighbors(self):

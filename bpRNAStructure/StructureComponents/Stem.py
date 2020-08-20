@@ -21,12 +21,15 @@ CANONICAL_BASE_PAIRS = [('A', 'U'), ('U', 'A'), ('G', 'C'),
 the Stem object is used to represent RNA secondary structure stems.
 
 Member variable -- data type -- description:
-self._label -- String -- the label for the stem as defined in the structure type file.
+self._label -- String -- the label for the stem as defined in the structure
+    type file.
 self._sequence5p -- String -- the 5' portion of the stem sequence.
 self._sequence3p -- String -- the 3' portion of the stem sequence.
 self._sequenceLen -- Int -- the length of the stem in number of base pairs.
-self._sequence5p_index -- (int, int) -- tuple containing the integer value start and stop indices for the 5' portion of the stem sequence.
-self._sequence3p_index -- (int, int) -- tuple containing the integer value start and stop indices for the 3' portion of the stem sequence.
+self._sequence5p_index -- (int, int) -- tuple containing the integer value
+    start and stop indices for the 5' portion of the stem sequence.
+self._sequence3p_index -- (int, int) -- tuple containing the integer value
+    start and stop indices for the 3' portion of the stem sequence.
 self._neighbor5p -- str -- label for 5' neighbor in Structure object
 self._neighbor3p -- str -- label for 5' neighbor in Structure object
 
@@ -44,7 +47,10 @@ self._neighbor3p -- str -- label for 5' neighbor in Structure object
 
 class Stem:
     # __init__ method for stem object
-    def __init__(self, label="", sequence5p="", sequence3p="", sequence5pSpan=(-1, -1), sequence3pSpan=(-1, -1), neighbor5p=('', ''), neighbor3p=('', ''), adjacentBulges=(False, False)):
+    def __init__(self, label="", sequence5p="", sequence3p="",
+                 sequence5pSpan=(-1, -1), sequence3pSpan=(-1, -1),
+                 neighbor5p=('', ''), neighbor3p=('', ''),
+                 adjacentBulges=(False, False)):
         self._label = label  # sequence label
         self._sequence5p = sequence5p  # 5' portion of stem
         self._sequence3p = sequence3p  # 3' portion of stem
@@ -72,22 +78,26 @@ class Stem:
     def __len__(self):
         return self._sequenceLen
 
-    # Internal method to set the object _sequence member variable as a list of tuples based on the 5' and 3' sequence variables
+    # Internal method to set the object _sequence member variable as a list of
+    # tuples based on the 5' and 3' sequence variables
     def _setSequence(self):
         if len(self._sequence5p) == len(self._sequence3p):
             self._sequence = list(
                 zip(list(self._sequence5p), list(self._sequence3p[::-1])))
 
-    # internal method to update the sequenceLen member variable when the sequence is changed by the user
+    # internal method to update the sequenceLen member variable when the
+    # sequence is changed by the user
     def _setSequenceLen(self):
         self._sequenceLen = (len(self._sequence5p) +
                              len(self._sequence3p)) // 2
 
-    # internal method used during Structure object parsing to track if stem is next to length=1 bulges
+    # internal method used during Structure object parsing to track if
+    # stem is next to length=1 bulges
     def _addAdjacentBulgeBoolean(self, bulge5p, bulge3p):
         self._adjacentBulges = (bulge5p, bulge3p)
 
-    # Internal method that returns tuple containg booleans for whether or not the stem is adjacent to length=1 bulges
+    # Internal method that returns tuple containg booleans for whether or
+    # not the stem is adjacent to length=1 bulges
     def _adjacentBulgeBoolean(self):
         return self._adjacentBulges
 
@@ -102,9 +112,11 @@ class Stem:
 
     '''
     Function: Stem.label()
-    Description: function returns the label for the stem object. Also allows for user to change label of stems
+    Description: function returns the label for the stem object. Also allows
+                for user to change label of stems
     Parameters:
-            (newLabel=None) -- str -- new label that to update the stem._label member variable
+            (newLabel=None) -- str -- new label that to update the stem._label
+            member variable
     Return Value:
             str - label for the Stem object
     '''
@@ -119,7 +131,8 @@ class Stem:
     Function: Stem.sequence5p()
     Description: function returns the 5' portion of the stem sequence
     Parameters:
-            (newSequence) -- str -- new RNA sequence to define the 5' sequence of the stem.
+            (newSequence) -- str -- new RNA sequence to define the 5' sequence
+            of the stem.
     Return Value:
             str - The current 5' sequence for the Stem object
     '''
@@ -139,7 +152,8 @@ class Stem:
     Function: Stem.sequence5p()
     Description: function returns the 3' portion of the stem sequence
     Parameters:
-            (newSequence) -- str -- new RNA sequence to define the 3' sequence of the stem.
+            (newSequence) -- str -- new RNA sequence to define the 3'
+            sequence of the stem.
     Return Value:
             str - The current 3' sequence for the Stem object
     '''
@@ -157,12 +171,16 @@ class Stem:
 
     '''
     Function: Stem.sequence()
-    Description: function returns the stem sequence as a list of tuples containg base pairs. Ex: [('C','G'), ... , ('A', 'U')]
+    Description: function returns the stem sequence as a list of tuples
+                containg base pairs. Ex: [('C','G'), ... , ('A', 'U')]
     Parameters:
-            (sequence5p=None) -- str -- new RNA sequence to define the 5' sequence of the stem.
-            (sequence3p=None) -- str -- new RNA sequence to define the 3' sequence of the stem.
+            (sequence5p=None) -- str -- new RNA sequence to define the 5'
+            sequence of the stem.
+            (sequence3p=None) -- str -- new RNA sequence to define the 3'
+            sequence of the stem.
     Return Value:
-            list - list of tuples representing the base pair sequence of the stem.
+            list - list of tuples representing the base pair sequence of
+            the stem.
     '''
 
     def sequence(self, sequence5p=None, sequence3p=None):
@@ -174,7 +192,7 @@ class Stem:
                 self._setSequenceLen()
             else:
                 print(
-                    'Could not set the stem sequence because the 5\' and 3\' sequences are different lengths.')
+                    'Invalid - sequences are different lengths.')
         else:
             return self._sequence
 
@@ -191,10 +209,12 @@ class Stem:
 
     '''
     Function: Stem.span()
-    Description: function returns a tuple containing two tuples that contain start and stop indices for the 5' and 3' sequence of the stem
+    Description: function returns a tuple containing two tuples that contain
+                start and stop indices for the 5' and 3' sequence of the stem
     Parameters: None
     Return Value:
-            ((int, int), (int, int)) - a tuple containing the tuple(int, int) start and stop positions for the 5' and 3' stem sequences
+            ((int, int), (int, int)) - a tuple containing the tuple(int, int)
+            start and stop positions for the 5' and 3' stem sequences
     '''
 
     def span(self):
@@ -202,10 +222,12 @@ class Stem:
 
     '''
     Function: Stem.sequence5pSpan()
-    Description: function returns the start and stop indices of the 5' portion of the stem in a tuple. Ex: (start, stop)
+    Description: function returns the start and stop indices of the 5' portion
+                of the stem in a tuple. Ex: (start, stop)
     Parameters: None
     Return Value:
-            (int, int) - a tuple containing the integer value start and stop positions of the 5' portion of the stem
+            (int, int) - a tuple containing the integer value start and stop
+            positions of the 5' portion of the stem
     '''
 
     def sequence5pSpan(self):
@@ -213,10 +235,12 @@ class Stem:
 
     '''
     Function: Stem.sequence3pSpan()
-    Description: function returns the start and stop indices of the 3' portion of the stem in a tuple. Ex: (start, stop)
+    Description: function returns the start and stop indices of the 3' portion
+                of the stem in a tuple. Ex: (start, stop)
     Parameters: None
     Return Value:
-            (int, int) - a tuple containing the integer value start and stop positions of the 3' portion of the stem
+            (int, int) - a tuple containing the integer value start and stop
+            positions of the 3' portion of the stem
     '''
 
     def sequence3pSpan(self):
@@ -224,10 +248,13 @@ class Stem:
 
     '''
     Function: Stem.neighbors()
-    Description: Function returns a tuple containing the labels for the 5' and 3' neighbors of the stem
+    Description: Function returns a tuple containing the labels for the 5'
+                and 3' neighbors of the stem
     Parameters: None
     Return Value:
-            ((str, str), (str, str)) - tuple containging tuples containing the string value labels for the neighbors structures of the 5' and 3' portions of the stem sequennce
+            ((str, str), (str, str)) - tuple containging tuples containing
+            the string value labels for the neighbors structures of the 5'
+            and 3' portions of the stem sequennce
     '''
 
     def neighbors(self):
@@ -235,10 +262,12 @@ class Stem:
 
     '''
     Function: Stem.cannonical()
-    Description: Function to check if all base pairs in a stem are canonical base pairings
+    Description: Function to check if all base pairs in a stem are canonical
+                base pairings
     Parameters: None
     Return Value:
-            bool - true or false as to whether or not the stem contains all cannonical base pairings
+            bool - true or false as to whether or not the stem contains all
+            cannonical base pairings
     '''
 
     def canonical(self):
@@ -246,10 +275,14 @@ class Stem:
 
     '''
     Function: Stem.energy()
-    Description: function calculates the folding free energy change for the stem
+    Description: function calculates the folding free energy change for the
+                stem
     Parameters:
-            (strict=True) -- bool -- when true, energy values will only be calculated for cannonical stems/stems with all present energy parameters
-            (init=False) -- bool -- when true, the 4.09 Kcal/mol initiation value is inlcuded in energy calculations.
+            (strict=True) -- bool -- when true, energy values will only be
+            calculated for cannonical stems/stems with all present energy
+            parameters
+            (init=False) -- bool -- when true, the 4.09 Kcal/mol initiation
+            value is inlcuded in energy calculations.
     Return Value:
             float - the calculated energy value for the given stem
     '''
