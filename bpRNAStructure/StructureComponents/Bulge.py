@@ -156,7 +156,7 @@ class Bulge:
             int - the integer value length of the bulge
     '''
 
-    def sequenceLen(self):
+    def length(self):
         return self._sequenceLen
 
     '''

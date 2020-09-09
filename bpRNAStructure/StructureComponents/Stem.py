@@ -204,7 +204,7 @@ class Stem:
             int - the integer value length of the stem
     '''
 
-    def sequenceLen(self):
+    def length(self):
         return self._sequenceLen
 
     '''

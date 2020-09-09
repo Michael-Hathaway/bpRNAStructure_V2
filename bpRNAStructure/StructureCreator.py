@@ -329,7 +329,7 @@ class StructureCreator():
         except OSError:  # error finding or opening file
             print("Error finding or Accessing file.")
             return
-        except:  # something weird happened
+        except Exception:  # something weird happened
             print(
                 'Something unexpected ocurred when accessing the file')
             return
@@ -349,17 +349,17 @@ class StructureCreator():
             if line[0] == '#':
                 # get name of RNA molecule
                 if line[0:6] == '#Name:':
-                    self._name = line[6:].strip()
+                    new_structure._name = line[6:].strip()
 
                 # get length of the RNA sequence
                 elif line[0:8] == '#Length:':
-                    self._length = int(line[8:].strip().strip(','))
+                    new_structure._length = int(line[8:].strip().strip(','))
                     new_structure._componentArray = np.empty(
-                        self._length, dtype=object)
+                        new_structure._length, dtype=object)
 
                 # get page number for molecule
                 elif line[0:12] == '#PageNumber:':
-                    self._pageNum = int(line[12:].strip())
+                    new_structure._pageNum = int(line[12:].strip())
 
                 else:
                     continue
@@ -472,12 +472,3 @@ class StructureCreator():
 
         new_structure._addStemBulgeNeighborBooleans()
         return new_structure
-
-
-if __name__ == "__main__":
-
-    structure = StructureCreator.create("bpRNA_CRW_1.st")
-
-    for i in structure.features():
-        c = structure.component(i)
-        print(c.energy())

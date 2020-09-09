@@ -358,18 +358,18 @@ class Structure:
 
             # check if a 5' neighbor is a length=1 bulge and if so change bool5p to True
             if(neighbor5p[0] != 'EOM' and neighbor5p[0].label()[0] == 'B'):
-                if (neighbor5p[0].sequenceLen() == 1):
+                if (neighbor5p[0].length() == 1):
                     bool5p = True
             elif(neighbor5p[1] != 'EOM' and neighbor5p[1].label()[0] == 'B'):
-                if (neighbor5p[1].sequenceLen() == 1):
+                if (neighbor5p[1].length() == 1):
                     bool5p = True
 
             # check if a 3' neighbor is a length=1 bulge and if so change bool3p to True
             if(neighbor3p[0] != 'EOM' and neighbor3p[0].label()[0] == 'B'):
-                if (neighbor3p[0].sequenceLen() == 1):
+                if (neighbor3p[0].length() == 1):
                     bool3p = True
             elif(neighbor3p[1] != 'EOM' and neighbor3p[1].label()[0] == 'B'):
-                if (neighbor3p[1].sequenceLen() == 1):
+                if (neighbor3p[1].length() == 1):
                     bool3p = True
 
             stem._addAdjacentBulgeBoolean(bool5p, bool3p)

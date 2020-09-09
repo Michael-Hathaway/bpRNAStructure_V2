@@ -147,7 +147,7 @@ class Hairpin:
             int - the length of the hairpin sequence
     '''
 
-    def sequenceLen(self):
+    def length(self):
         return self._sequenceLen
 
     '''

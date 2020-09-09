@@ -169,7 +169,7 @@ class InternalLoop:
             lengths of the 5' and 3' portions of the Internal Loop
     '''
 
-    def loopsLen(self):
+    def length(self):
         return self._loopsLen
 
     '''

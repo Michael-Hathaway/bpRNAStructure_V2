@@ -78,7 +78,7 @@ class End:
             int - the integer value length of the End object
     '''
 
-    def sequenceLen(self):
+    def length(self):
         return self._sequenceLen
 
     '''

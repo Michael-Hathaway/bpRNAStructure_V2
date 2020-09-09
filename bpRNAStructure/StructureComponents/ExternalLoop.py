@@ -93,7 +93,7 @@ class ExternalLoop:
             int - the integer value length of the ExternalLoop sequence
     '''
 
-    def sequenceLen(self):
+    def length(self):
         return self._sequenceLen
 
     '''
