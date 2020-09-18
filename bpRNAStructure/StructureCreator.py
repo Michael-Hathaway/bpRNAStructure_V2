@@ -3,7 +3,6 @@ import re
 
 # Structure Type Imports
 from bpRNAStructure.Structure import Structure
-
 from bpRNAStructure.StructureComponents.Hairpin import Hairpin
 from bpRNAStructure.StructureComponents.Stem import Stem
 from bpRNAStructure.StructureComponents.Bulge import Bulge
@@ -12,11 +11,10 @@ from bpRNAStructure.StructureComponents.ExternalLoop import ExternalLoop
 from bpRNAStructure.StructureComponents.Multiloop import Multiloop
 from bpRNAStructure.StructureComponents.End import End
 from bpRNAStructure.StructureComponents.NCBP import NCBP
-
 from bpRNAStructure.StructureExecptions import StructureFileNotProvided
 
 
-class StructureCreator():
+class StructureCreator:
     @staticmethod
     def split_feature_index_string(index_string: str):
         # splits string with form "45..68" into (45, 68)
