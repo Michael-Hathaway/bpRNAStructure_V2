@@ -313,7 +313,7 @@ class StructureCreator():
         return feature_string[0] == 'S' and feature_string[1].isdigit()
 
     @classmethod
-    def create(self, filename=None):
+    def create(cls, filename=None):
         if filename is None:
             print("No file provided")
             return
@@ -399,27 +399,27 @@ class StructureCreator():
         while i < (len(features)):  # iterate through the individual string
 
             # stems
-            if self.is_stem(features[i]):
-                new_stem = self._create_stem_from_file_line(features[i])
+            if cls.is_stem(features[i]):
+                new_stem = cls._create_stem_from_file_line(features[i])
                 new_structure.addStem(new_stem.label(), new_stem)
                 new_structure._addStemToComponentArray(new_stem)
 
             # Hairpins
             elif features[i][0] == 'H':
-                new_hairpin = self._create_hairpin_from_file_line(features[i])
+                new_hairpin = cls._create_hairpin_from_file_line(features[i])
                 new_structure.addHairpin(new_hairpin.label(), new_hairpin)
                 new_structure._addHairpinToComponentArray(new_hairpin)
 
             # Bulges
             elif features[i][0] == 'B':
-                new_bulge = self._create_bulge_from_file_line(features[i])
+                new_bulge = cls._create_bulge_from_file_line(features[i])
                 new_structure.addBulge(new_bulge.label(), new_bulge)
                 new_structure._addBulgeToComponentArray(new_bulge)
 
             # Inner Loops
             elif features[i][0] == 'I' and re.search('I\d{1,3}.1', features[i]):
                 # pass both inner loop components
-                new_internal_loop = self._create_internal_loop_from_file_line(
+                new_internal_loop = cls._create_internal_loop_from_file_line(
                     features[i], features[i+1])
                 new_structure.addInternalLoop(
                     new_internal_loop.label(), new_internal_loop)
@@ -428,17 +428,17 @@ class StructureCreator():
 
             # MultiLoops
             elif features[i][0] == 'M':
-                parentLabel = self.get_loop_parent_label(
+                parentLabel = cls.get_loop_parent_label(
                     features[i])  # get parent label of the multiloop
                 subcomponents = []  # array store multiloop subcomponents
 
                 # linear probe for other multiloop subcomponents
-                while self.get_loop_parent_label(features[i]) == parentLabel:
+                while cls.get_loop_parent_label(features[i]) == parentLabel:
                     subcomponents.append(features[i])
                     i += 1
 
                 # parse the entire multiloop subcomponent list
-                new_multiloop = self._create_multiloop_from_subcomponent_list(
+                new_multiloop = cls._create_multiloop_from_subcomponent_list(
                     parentLabel, subcomponents)
                 new_structure.addMultiLoop(
                     new_multiloop.label(), new_multiloop)
@@ -447,7 +447,7 @@ class StructureCreator():
 
             # external loops
             elif features[i][0] == 'X':
-                new_external_loop = self._create_external_loop_from_file_line(
+                new_external_loop = cls._create_external_loop_from_file_line(
                     features[i])
                 new_structure.addExternalLoop(
                     new_external_loop.label(), new_external_loop)
@@ -456,12 +456,12 @@ class StructureCreator():
 
             # NCBP
             elif features[i][0:4] == 'NCBP':
-                new_NCBP = self._create_NCBP_from_file_line(features[i])
+                new_NCBP = cls._create_NCBP_from_file_line(features[i])
                 new_structure.addNCBP(new_NCBP.label(), new_NCBP)
 
             # Ends
             elif features[i][0] == 'E':
-                new_end = self._create_end_from_file_line(features[i])
+                new_end = cls._create_end_from_file_line(features[i])
                 new_structure.addEnd(new_end.label(), new_end)
                 new_structure._addEndToComponentArray(new_end)
 
