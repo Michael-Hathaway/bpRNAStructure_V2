@@ -17,9 +17,6 @@ from bpRNAStructure.StructureExecptions import StructureFileNotProvided
 
 
 class StructureCreator():
-    def __init__(self, filename=None):
-        self._filename = filename
-
     @staticmethod
     def split_feature_index_string(index_string: str):
         # splits string with form "45..68" into (45, 68)
@@ -67,80 +64,81 @@ class StructureCreator():
 
         return parentLabel
 
-    @classmethod
-    def _create_stem_from_file_line(self, file_line: str) -> Stem:
+    @staticmethod
+    def _create_stem_from_file_line(file_line: str) -> Stem:
         stem_data = file_line.strip().split(" ")
 
         stemLabel = stem_data[0]  # get stem identifier
 
-        part5p_start, part5p_stop = self.split_feature_index_string(
+        part5p_start, part5p_stop = StructureCreator.split_feature_index_string(
             stem_data[1])  # get stem 5p indices
 
-        part5p_seq = self.get_feature_sequence(
+        part5p_seq = StructureCreator.get_feature_sequence(
             stem_data[2])  # stem 5p sequence
 
-        part3p_start, part3p_stop = self.split_feature_index_string(
+        part3p_start, part3p_stop = StructureCreator.split_feature_index_string(
             stem_data[3])  # get stem 3p indices
 
-        part3p_seq = self.get_feature_sequence(
+        part3p_seq = StructureCreator.get_feature_sequence(
             stem_data[4])  # stem 3p sequence
 
         return Stem(stemLabel, part5p_seq, part3p_seq,
                     (part5p_start, part5p_stop), (part3p_start, part3p_stop))
 
-    @classmethod
-    def _create_hairpin_from_file_line(self, file_line: str) -> Hairpin:
+    @staticmethod
+    def _create_hairpin_from_file_line(file_line: str) -> Hairpin:
         hairpinData = file_line.strip().split(" ")
 
         # get hairpin label
         hairpinLabel = hairpinData[0]
 
         # get index of start of hairpin
-        hairpin_indices = self.split_feature_index_string(
+        hairpin_indices = StructureCreator.split_feature_index_string(
             hairpinData[1])
 
         # get sequence of hairpin
-        hairpin_seq = self.get_feature_sequence(hairpinData[2])
+        hairpin_seq = StructureCreator.get_feature_sequence(hairpinData[2])
 
         # get indices for closing base
         close_5_prime_index, close_3_prime_index = \
-            self.split_closing_pair_index_string(hairpinData[3])
+            StructureCreator.split_closing_pair_index_string(hairpinData[3])
 
         close_5_prime_base, close_3_prime_base = \
-            self.split_closing_pair_base_string(hairpinData[4])
+            StructureCreator.split_closing_pair_base_string(hairpinData[4])
 
         return Hairpin(hairpinLabel, hairpin_seq, hairpin_indices,
                        (close_5_prime_base, close_3_prime_base),
                        (close_5_prime_index, close_3_prime_index))
 
-    @classmethod
-    def _create_bulge_from_file_line(self, file_line: str):
+    @staticmethod
+    def _create_bulge_from_file_line(file_line: str):
         bulgeData = file_line.strip().split(" ")
 
         # get bulge label
         bulgeLabel = bulgeData[0]
 
         # get start index of bulge
-        bulge_start, bulge_stop = self.split_feature_index_string(bulgeData[1])
+        bulge_start, bulge_stop = StructureCreator.split_feature_index_string(
+            bulgeData[1])
 
         # get bulge sequence
-        bulge_seq = self.get_feature_sequence(bulgeData[2])
+        bulge_seq = StructureCreator.get_feature_sequence(bulgeData[2])
 
         # get index of 5' base in preceding pair
         precedingPair5pIndex, precedingPair3pIndex = \
-            self.split_closing_pair_index_string(bulgeData[3])
+            StructureCreator.split_closing_pair_index_string(bulgeData[3])
 
         # get 5' base of preceding pair
         precedingPair5pBase, precedingPair3pBase = \
-            self.split_closing_pair_base_string(bulgeData[4])
+            StructureCreator.split_closing_pair_base_string(bulgeData[4])
 
         # get index of 5' base in trailing pair
         trailingPair5pIndex, trailingPair3pIndex = \
-            self.split_closing_pair_index_string(bulgeData[5])
+            StructureCreator.split_closing_pair_index_string(bulgeData[5])
 
         # get 5' and 3' bases of trailing pair
         trailingPair5pBase, trailingPair3pBase = \
-            self.split_closing_pair_base_string(bulgeData[6])
+            StructureCreator.split_closing_pair_base_string(bulgeData[6])
 
         # need to make sure trailing pair is ordered correctly
         if(abs(bulge_stop - trailingPair5pIndex) >
@@ -156,36 +154,38 @@ class StructureCreator():
                      (precedingPair5pIndex, precedingPair3pIndex),
                      trailingBasePair, trailingBasePairIndex)
 
-    @classmethod
-    def _create_internal_loop_from_file_line(self, loop_1_file_line: str,
+    @staticmethod
+    def _create_internal_loop_from_file_line(loop_1_file_line: str,
                                              loop_2_file_line: str):
         loop1Data = loop_1_file_line.strip().split(" ")
         loop2Data = loop_2_file_line.strip().split(" ")
 
         # get internal loop parent label
-        parent_label = self.get_loop_parent_label(loop1Data[0])
+        parent_label = StructureCreator.get_loop_parent_label(loop1Data[0])
 
         # get loop 1 start and stop indices
-        loop_1_indices = self.split_feature_index_string(
+        loop_1_indices = StructureCreator.split_feature_index_string(
             loop1Data[1])
 
         # get loop 1 start and stop indices
-        loop_2_indices = self.split_feature_index_string(
+        loop_2_indices = StructureCreator.split_feature_index_string(
             loop2Data[1])
 
         # get loop sequences
-        loop_1_sequence = self.get_feature_sequence(loop1Data[2])
-        loop_2_sequence = self.get_feature_sequence(loop2Data[2])
+        loop_1_sequence = StructureCreator.get_feature_sequence(loop1Data[2])
+        loop_2_sequence = StructureCreator.get_feature_sequence(loop2Data[2])
 
         # get indices for loop closing pairs
         loop_1_closing_pair_indices = \
-            self.split_closing_pair_index_string(loop1Data[3])
+            StructureCreator.split_closing_pair_index_string(loop1Data[3])
 
         loop_2_closing_pair_indices = \
-            self.split_closing_pair_index_string(loop2Data[3])
+            StructureCreator.split_closing_pair_index_string(loop2Data[3])
 
-        loop_1_closing_pair = self.split_closing_pair_base_string(loop1Data[4])
-        loop_2_closing_pair = self.split_closing_pair_base_string(loop2Data[4])
+        loop_1_closing_pair = StructureCreator.split_closing_pair_base_string(
+            loop1Data[4])
+        loop_2_closing_pair = StructureCreator.split_closing_pair_base_string(
+            loop2Data[4])
 
         closing_pairs = ((loop_1_closing_pair[0], loop_1_closing_pair[1]),
                          (loop_2_closing_pair[1], loop_2_closing_pair[0]))
@@ -196,27 +196,28 @@ class StructureCreator():
                             loop_1_closing_pair_indices,
                             loop_2_closing_pair_indices)
 
-    @classmethod
-    def _create_external_loop_from_file_line(self, file_line: str):
+    @staticmethod
+    def _create_external_loop_from_file_line(file_line: str):
         externalLoopData = file_line.strip().split(" ")
 
         externalLoopLabel = externalLoopData[0]
 
-        external_loop_indices = self.split_feature_index_string(
+        external_loop_indices = StructureCreator.split_feature_index_string(
             externalLoopData[1])
 
-        external_loop_sequence = self.get_feature_sequence(externalLoopData[2])
+        external_loop_sequence = StructureCreator.get_feature_sequence(
+            externalLoopData[2])
 
-        closing_pair_5p_indices = self.split_closing_pair_index_string(
+        closing_pair_5p_indices = StructureCreator.split_closing_pair_index_string(
             externalLoopData[3])
 
-        closing_pair_5p = self.split_closing_pair_base_string(
+        closing_pair_5p = StructureCreator.split_closing_pair_base_string(
             externalLoopData[4])
 
-        closing_pair_3p_indices = self.split_closing_pair_index_string(
+        closing_pair_3p_indices = StructureCreator.split_closing_pair_index_string(
             externalLoopData[5])
 
-        closing_pair_3p = self.split_closing_pair_base_string(
+        closing_pair_3p = StructureCreator.split_closing_pair_base_string(
             externalLoopData[6])
 
         return ExternalLoop(externalLoopLabel, external_loop_sequence,
@@ -224,21 +225,21 @@ class StructureCreator():
                             closing_pair_5p, closing_pair_5p_indices,
                             closing_pair_3p, closing_pair_3p_indices)
 
-    @classmethod
-    def _create_end_from_file_line(self, file_line: str):
+    @staticmethod
+    def _create_end_from_file_line(file_line: str):
         end_data = file_line.strip().split(" ")
 
         # get label for the feature
         end_label = end_data[0]
 
-        end_indices = self.split_feature_index_string(end_data[1])
+        end_indices = StructureCreator.split_feature_index_string(end_data[1])
 
-        end_sequence = self.get_feature_sequence(end_data[2])
+        end_sequence = StructureCreator.get_feature_sequence(end_data[2])
 
         return End(end_label, end_sequence, end_indices)
 
-    @classmethod
-    def _create_NCBP_from_file_line(self, file_line: str):
+    @staticmethod
+    def _create_NCBP_from_file_line(file_line: str):
         ncbpData = file_line.strip().split(" ")
 
         # get label for ncbp
@@ -264,8 +265,8 @@ class StructureCreator():
 
         return NCBP(ncbpLabel, (base1, base2), (base1Span, base2Span), loc)
 
-    @classmethod
-    def _create_multiloop_from_subcomponent_list(self, parent_label: str,
+    @staticmethod
+    def _create_multiloop_from_subcomponent_list(parent_label: str,
                                                  subcomponents: list):
 
         subunitLabels = []  # list to store all subunit labels
@@ -281,21 +282,23 @@ class StructureCreator():
             subunitLabel = loop[0][-1]
             subunitLabels.append(subunitLabel)
 
-            loop_indices = self.split_feature_index_string(loop[1])
+            loop_indices = StructureCreator.split_feature_index_string(loop[1])
             spans[subunitLabel] = loop_indices
 
-            loop_sequence = self.get_feature_sequence(loop[2])
+            loop_sequence = StructureCreator.get_feature_sequence(loop[2])
             sequences[subunitLabel] = loop_sequence
 
-            closing_pair_5p_indices = self.split_closing_pair_index_string(
+            closing_pair_5p_indices = StructureCreator.split_closing_pair_index_string(
                 loop[3])
 
-            closing_pair_5p = self.split_closing_pair_base_string(loop[4])
+            closing_pair_5p = StructureCreator.split_closing_pair_base_string(
+                loop[4])
 
-            closing_pair_3p_indices = self.split_closing_pair_index_string(
+            closing_pair_3p_indices = StructureCreator.split_closing_pair_index_string(
                 loop[5])
 
-            closing_pair_3p = self.split_closing_pair_base_string(loop[6])
+            closing_pair_3p = StructureCreator.split_closing_pair_base_string(
+                loop[6])
 
             # add closing pairs and closing pair spans to dictionaries
             closingPairs[subunitLabel] = (closing_pair_5p, closing_pair_3p)
@@ -309,23 +312,19 @@ class StructureCreator():
     def is_stem(feature_string: str) -> bool:
         return feature_string[0] == 'S' and feature_string[1].isdigit()
 
-    # actually create and return the structure object
     @classmethod
     def create(self, filename=None):
-        if filename is None and self._filename is None:
+        if filename is None:
             print("No file provided")
             return
 
-        if filename:
-            self._filename = filename
-
         # check that file is valid structure type
-        if self._filename[-3::] != '.st':
+        if filename[-3::] != '.st':
             raise StructureFileNotProvided
 
         # try to open the provided file + error handling
         try:
-            f = open(self._filename, 'r')
+            f = open(filename, 'r')
         except OSError:  # error finding or opening file
             print("Error finding or Accessing file.")
             return
@@ -335,7 +334,7 @@ class StructureCreator():
             return
 
         # create new structure object
-        new_structure = Structure(filename=self._filename)
+        new_structure = Structure(filename=filename)
 
         # Variables to validate all features have been read
         sequenceRead = False
